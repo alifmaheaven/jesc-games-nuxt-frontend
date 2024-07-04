@@ -28,10 +28,10 @@ const validationSchema = yup.object({
   username: yup.string().required().label("Username"),
   password: yup.string().required().label("Password"),
 });
-const { handleSubmit, resetForm, setValues } = useForm({
+const { handleSubmit, setValues } = useForm({
   initialValues: {
-    username: "",
-    password: "",
+    username: "alifmaheaven",
+    password: "abogoboga",
   },
   validationSchema: validationSchema,
 });
@@ -47,24 +47,51 @@ const { handleSubmit, resetForm, setValues } = useForm({
 // };
 // getData();
 
-const submitLogin = handleSubmit(async (values, { resetForm }) => {
-  console.log("ini valuenya", values);
-  // showError({
-  //   statusCode: 404,
-  //   statusMessage: "Page Not Found"
-  // })
+const submitLogin = handleSubmit(async (values, { resetForm, setErrors }) => {
+  try {
+    const response = await $api.post("/api/v1/auth/login", values);
+    authStore.setToken(response?.data?.data?.token);
+    await authStore.setUserData();
+    useToast().add({ 
+      title: 'Successfuly Login!',
+      description: 'You have been successfully logged in.',
+      icon:"i-heroicons-check-circle",
+      color:"success",
+      ui:{
+        icon: {
+          base: 'flex-shrink-0 w-10 h-10',
+          color: 'text-{color}-500 dark:text-{color}-400',
+        },
+      }
+    })
+  } catch (error) {
+    console.log(error);
+    if(error?.response?.data?.data) setErrors(error.response.data.data);
+    useToast().add({ 
+      title: 'Failed Login!',
+      description: 'Please check your username and password.',
+      icon:"i-heroicons-x-circle",
+      color:"danger",
+      ui:{
+        icon: {
+          base: 'flex-shrink-0 w-10 h-10',
+          color: 'text-{color}-500 dark:text-{color}-400',
+        },
+      }
+    })
+  }
 });
 </script>
 
 <template>
   <div class="inline-flex min-h-max max-w-[23rem] items-center justify-center">
     <div
-      class="inline-flex shrink grow basis-0 flex-col items-center justify-start rounded-xl border border-slate-200 bg-slate-50 shadow"
+      class="inline-flex shrink grow basis-0 flex-col items-center justify-start rounded-xl bg-light shadow-md"
     >
       <div
         class="relative flex h-fit flex-col items-center justify-start gap-4 self-stretch p-6"
       >
-        <div class="relative h-36 w-full">
+        <!-- <div class="relative h-36 w-full">
           <div
             class="absolute -top-7 left-0 right-0 m-auto inline-flex h-48 w-48 items-center justify-center rounded-xl bg-transparent p-3.5"
           >
@@ -77,7 +104,7 @@ const submitLogin = handleSubmit(async (values, { resetForm }) => {
               />
             </ClientOnly>
           </div>
-        </div>
+        </div> -->
         <div
           class="flex h-fit flex-col items-start justify-center gap-3 self-stretch"
         >
@@ -125,18 +152,6 @@ const submitLogin = handleSubmit(async (values, { resetForm }) => {
             Masuk
           </GlobalButton>
         </div>
-        <Icon name="i-octicon-logo-github-16" />
-        <Icon name="octicon:logo-github-16" />
-        <UDivider icon="i-octicon-logo-github-16" />
-        <UButton
-          icon="i-heroicons-battery-50-20-solid"
-          size="sm"
-          color="primary"
-          variant="solid"
-          label="Button"
-          :trailing="false"
-        />
-
         <div
           class="flex h-[52px] flex-col items-center justify-start gap-3 self-stretch"
         >

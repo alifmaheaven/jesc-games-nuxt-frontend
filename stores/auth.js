@@ -21,7 +21,15 @@ export const useAuth = defineStore("auth", {
   actions: {
     setUserData() {
       return new Promise((resolve, reject) => {
-        // set user data to cookie, or you can add your own logic here
+        useNuxtApp().$api({
+          url: `/api/v1/auth/profile/`,
+          method: "GET",
+        }).then((response) => {
+          this.user_data = response.data.data;
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
       });
     },
     setTempUserData(temp_user_data) {

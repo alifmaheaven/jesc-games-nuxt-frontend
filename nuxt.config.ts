@@ -3,13 +3,17 @@ import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   app:{
     // baseURL: '/skeleton/'
     head: {
       title: "Skeleton"
     }
   },
-  components: ["~/components"], // components: [{ path: "./components", prefix: "SKELETON" }], // using <SKELETON-Button /> or <SKELETONButton />
+
+  // components: [{ path: "./components", prefix: "SKELETON" }], // using <SKELETON-Button /> or <SKELETONButton />
+  components: ["~/components"],
+
   // extends: ["../MASTER-Repo"], // to inmport all components from MASTER-Repo
   modules: [
     "@pinia/nuxt",
@@ -18,10 +22,13 @@ export default defineNuxtConfig({
     "@nuxt/ui", // https://ui.nuxt.com/, cara pake iconnya dari icones ex: octicon:logo-github-16 = i-octicon-logo-github-16
     "@nuxtjs/tailwindcss",
   ],
+
   image: {
     dir: "public",
   },
+
   css: ["~/assets/css/main.css", "~/assets/scss/main.scss"],
+
   runtimeConfig: {
     MODE: process.env.NUXT_MODE, // important
     public: {
@@ -29,6 +36,7 @@ export default defineNuxtConfig({
       TOKEN_EXPIRES_IN_PUBLIC: Number(process.env.NUXT_TOKEN_EXPIRES_IN_PUBLIC), // important
     },
   },
+
   postcss: {
     plugins: {
       "postcss-import": {},
@@ -38,13 +46,16 @@ export default defineNuxtConfig({
       "postcss-advanced-variables": {},
     },
   },
+
   ui: {
     global: true,
     icons: {
       dynamic: true,
     },
   },
+
   ssr: true,
+
   nitro: {
     // baseURL: process.env.NUXT_BASE_URL_PUBLIC,
     prerender: {
@@ -53,4 +64,6 @@ export default defineNuxtConfig({
     },
     compressPublicAssets: true,
   },
+
+  compatibilityDate: "2024-07-04",
 });
