@@ -39,13 +39,6 @@ const { handleSubmit, setValues } = useForm({
 // data
 
 // methods
-// const getData = () => {
-//   $api.get("/api/v1/test").then((response) => {
-//     console.log(response);
-//   });
-//   authStore.setUserData();
-// };
-// getData();
 
 const submitLogin = handleSubmit(async (values, { resetForm, setErrors }) => {
   try {
@@ -64,6 +57,7 @@ const submitLogin = handleSubmit(async (values, { resetForm, setErrors }) => {
         },
       }
     })
+    navigateTo("/");
   } catch (error) {
     console.log(error);
     if(error?.response?.data?.data) setErrors(error.response.data.data);

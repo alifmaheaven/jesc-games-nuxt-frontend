@@ -61,11 +61,11 @@ const currentPageChange = (value) => {
     </pagination-custom>
     --->
   <div
-    class="inline-flex h-20 w-full items-center justify-between gap-5 border-t border-gray-200 p-5"
+    class="inline-flex h-20 w-full items-center justify-between gap-5 p-5"
   >
     <div
-      class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3.5 py-2 shadow hover:bg-slate-300"
-      @click="currentPage != 1 && currentPageChange(currentPage - 1)"
+      class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-slate-50 px-3.5 py-2 shadow hover:bg-slate-300"
+      @click="currentPage != 1 && currentPageChange(Number(currentPage) - 1)"
     >
       <Icon name="ph:arrow-left-bold" class="relative h-5 w-5"></Icon>
       <div class="text-sm font-semibold leading-tight text-slate-700">
@@ -97,10 +97,10 @@ const currentPageChange = (value) => {
           </div>
           <div
             v-else
-            class="inline-flex w-10 items-center justify-center self-stretch rounded-[20px] p-3"
+            class="inline-flex w-10 items-center justify-center self-stretch rounded-[20px] p-3 bg-primary shadow-sm"
           >
             <div
-              class="text-center text-sm font-medium leading-tight text-slate-800"
+              class="text-center text-sm font-medium leading-tight text-white"
             >
               {{ page }}
             </div>
@@ -123,8 +123,8 @@ const currentPageChange = (value) => {
       </template>
     </div>
     <div
-      class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3.5 py-2 shadow hover:bg-slate-300"
-      @click="currentPage != totalPage && currentPageChange(currentPage + 1)"
+      class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-gray-300 bg-slate-50 px-3.5 py-2 shadow hover:bg-slate-300"
+      @click="currentPage != totalPage && currentPageChange(Number(currentPage) + 1)"
     >
       <div class="text-sm font-semibold leading-tight text-slate-700">
         Berikutnya

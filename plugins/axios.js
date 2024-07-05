@@ -55,8 +55,21 @@ export default defineNuxtPlugin((nuxtApp) => {
           !err.config.__isRetryRequest
         ) {
           // if you ever get an unauthorized, logout the user
-          // useAuthStore().logout();
+          useAuth().logout();
           // you can also redirect to /login if needed !
+          navigateTo("/auth/login");
+          useToast().add({ 
+            title: 'Session Expired!',
+            description: 'Please login again to continue.',
+            icon:"i-heroicons-x-circle",
+            color:"danger",
+            ui:{
+              icon: {
+                base: 'flex-shrink-0 w-10 h-10',
+                color: 'text-{color}-500 dark:text-{color}-400',
+              },
+            }
+          })
         }
         // console.log(err);
         throw err;

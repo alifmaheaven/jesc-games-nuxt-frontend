@@ -47,7 +47,6 @@ export const useAuth = defineStore("auth", {
         this.isAuth_data = false;
         this.user_data = {};
         this.token_data = "";
-
         resolve();
       });
     },
